@@ -1,5 +1,9 @@
 body{
-    background: url("star-wars-backgrounds-14.jpeg") no-repeat;
     background-size: cover;
+    background: url("star-wars-backgrounds-14.jpeg") no-repeat;
+    height: 100%;
+}
 
+table{
+    text-align: center;
 }
