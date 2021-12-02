@@ -12,7 +12,7 @@ fetch(PLANETS).then(response => response.json())
     for(let i=0; i<data.results.length; i++){
         var tr = document.createElement('TR');
         tr.classList.add("row");
-        let dataForTable = [data.results[i]["name"], data.results[i]["diameter"], data.results[i]["climate"], data.results[i]["terrain"], data.results[i]["surface_water"], data.results[i]["population"] ]
+        let dataForTable = [data.results[i]["name"], convertStringToNumberWithUnit(data.results[i]["diameter"]), data.results[i]["climate"], data.results[i]["terrain"], convertStringToNumberWithPercentage(data.results[i]["surface_water"]), convertStringToNumberWithDecimals(data.results[i]["population"])]
         for(let j=0; j<dataForTable.length; j++){
             var td = document.createElement('TD');
             td.classList.add("col");
@@ -49,11 +49,38 @@ function loadNextOrPreviousPage(APILink){
         let rows = tableBody.querySelectorAll(".row")
         for(let i=0; i<data.results.length; i++){
             var tr = rows[i]
-            let dataForTable = [data.results[i]["name"], data.results[i]["diameter"], data.results[i]["climate"], data.results[i]["terrain"], data.results[i]["surface_water"], data.results[i]["population"]]
+            let dataForTable = [data.results[i]["name"], convertStringToNumberWithUnit(data.results[i]["diameter"]), data.results[i]["climate"], data.results[i]["terrain"], convertStringToNumberWithPercentage(data.results[i]["surface_water"]), convertStringToNumberWithDecimals(data.results[i]["population"])]
             let cells = tr.querySelectorAll(".col")
                 for(let j=0; j<dataForTable.length; j++){
                     var td = cells[j]
                     td.innerHTML = dataForTable[j]}
         }
     })
+}
+
+function convertStringToNumberWithDecimals(string){
+    if (string != "unknown"){
+        let number = parseInt(string)
+        return new Intl.NumberFormat('en-US', {style: 'decimal'}).format(number);
+    }else{
+        return "unknown"
+    }
+}
+
+function convertStringToNumberWithPercentage(string){
+    if (string != "unknown"){
+        let number = parseInt(string)
+        return number + "%";
+    }else{
+        return "unknown"
+    }
+}
+
+function convertStringToNumberWithUnit(string){
+    if (string != "unknown"){
+        let number = parseInt(string)
+        return new Intl.NumberFormat('en-US', {style: 'decimal'}).format(number) + " km";
+    }else{
+        return "unknown"
+    }
 }
