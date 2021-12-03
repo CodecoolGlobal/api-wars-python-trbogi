@@ -104,7 +104,8 @@ function getResidents(residentsLinks){
     if (amountOfResidents == 0){
         return "No known residents"
     }else{
-        return `<button id=\"previous\" class=\"btn btn-light btn-sm\">${amountOfResidents} resident(s)</button>`
+        return`<button id=\"previous\" class=\"btn btn-light btn-sm\" data-bs-toggle=\"modal\" data-bs-target=\"#exampleModal\">${amountOfResidents} resident(s)</button>`
     }
 
 }
+
