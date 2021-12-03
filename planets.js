@@ -6,13 +6,21 @@ let previousPageLink = null
 
 fetch(PLANETS).then(response => response.json())
 .then(data => {
+    console.log(data.results)
     nextPageLink = data.next
     showHideButton(previousPageLink,previousButton)
     showHideButton(nextPageLink,nextButton)
     for(let i=0; i<data.results.length; i++){
         var tr = document.createElement('TR');
         tr.classList.add("row");
-        let dataForTable = [data.results[i]["name"], convertStringToNumberWithUnit(data.results[i]["diameter"]), data.results[i]["climate"], data.results[i]["terrain"], convertStringToNumberWithPercentage(data.results[i]["surface_water"]), convertStringToNumberWithDecimals(data.results[i]["population"])]
+        console.log(data.results[i])
+        let dataForTable = [data.results[i]["name"],
+                            convertStringToNumberWithUnit(data.results[i]["diameter"]),
+                            data.results[i]["climate"], data.results[i]["terrain"],
+                            convertStringToNumberWithPercentage(data.results[i]["surface_water"]),
+                            convertStringToNumberWithDecimals(data.results[i]["population"]),
+                            getResidents(data.results[i]["residents"]),
+                            "Vote"]
         for(let j=0; j<dataForTable.length; j++){
             var td = document.createElement('TD');
             td.classList.add("col");
@@ -49,7 +57,13 @@ function loadNextOrPreviousPage(APILink){
         let rows = tableBody.querySelectorAll(".row")
         for(let i=0; i<data.results.length; i++){
             var tr = rows[i]
-            let dataForTable = [data.results[i]["name"], convertStringToNumberWithUnit(data.results[i]["diameter"]), data.results[i]["climate"], data.results[i]["terrain"], convertStringToNumberWithPercentage(data.results[i]["surface_water"]), convertStringToNumberWithDecimals(data.results[i]["population"])]
+            let dataForTable = [data.results[i]["name"],
+                        convertStringToNumberWithUnit(data.results[i]["diameter"]),
+                        data.results[i]["climate"], data.results[i]["terrain"],
+                        convertStringToNumberWithPercentage(data.results[i]["surface_water"]),
+                        convertStringToNumberWithDecimals(data.results[i]["population"]),
+                        getResidents(data.results[i]["residents"]),
+                        "Vote"]
             let cells = tr.querySelectorAll(".col")
                 for(let j=0; j<dataForTable.length; j++){
                     var td = cells[j]
@@ -83,4 +97,14 @@ function convertStringToNumberWithUnit(string){
     }else{
         return "unknown"
     }
+}
+
+function getResidents(residentsLinks){
+    let amountOfResidents = residentsLinks.length
+    if (amountOfResidents == 0){
+        return "No known residents"
+    }else{
+        return `<button id=\"previous\" class=\"btn btn-light btn-sm\">${amountOfResidents} resident(s)</button>`
+    }
+
 }
