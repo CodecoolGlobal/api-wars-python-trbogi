@@ -6,20 +6,18 @@ let previousPageLink = null
 
 fetch(PLANETS).then(response => response.json())
 .then(data => {
-    console.log(data.results)
     nextPageLink = data.next
     showHideButton(previousPageLink,previousButton)
     showHideButton(nextPageLink,nextButton)
     for(let i=0; i<data.results.length; i++){
         var tr = document.createElement('TR');
         tr.classList.add("row");
-        console.log(data.results[i])
         let dataForTable = [data.results[i]["name"],
                             convertStringToNumberWithUnit(data.results[i]["diameter"]),
                             data.results[i]["climate"], data.results[i]["terrain"],
                             convertStringToNumberWithPercentage(data.results[i]["surface_water"]),
                             convertStringToNumberWithDecimals(data.results[i]["population"]),
-                            getResidents(data.results[i]["residents"]),
+                            getResidentsNumber(data.results[i]["residents"],data.results[i]["name"] ),
                             "Vote"]
         for(let j=0; j<dataForTable.length; j++){
             var td = document.createElement('TD');
@@ -28,7 +26,12 @@ fetch(PLANETS).then(response => response.json())
             tr.appendChild(td);
         }
         tableBody.appendChild(tr);
-}})
+}
+
+triggerModalButtons()
+
+}
+)
 
 let nextButton = document.querySelector("#next");
 nextButton.addEventListener("click", e => loadNextOrPreviousPage(nextPageLink))
@@ -62,7 +65,7 @@ function loadNextOrPreviousPage(APILink){
                         data.results[i]["climate"], data.results[i]["terrain"],
                         convertStringToNumberWithPercentage(data.results[i]["surface_water"]),
                         convertStringToNumberWithDecimals(data.results[i]["population"]),
-                        getResidents(data.results[i]["residents"]),
+                        getResidentsNumber(data.results[i]["residents"]),
                         "Vote"]
             let cells = tr.querySelectorAll(".col")
                 for(let j=0; j<dataForTable.length; j++){
@@ -99,13 +102,12 @@ function convertStringToNumberWithUnit(string){
     }
 }
 
-function getResidents(residentsLinks){
+function getResidentsNumber(residentsLinks, planet){
     let amountOfResidents = residentsLinks.length
     if (amountOfResidents == 0){
         return "No known residents"
     }else{
-        return`<button id=\"previous\" class=\"btn btn-light btn-sm\" data-bs-toggle=\"modal\" data-bs-target=\"#exampleModal\">${amountOfResidents} resident(s)</button>`
+        return`<button class=\"btn btn-light btn-sm modalButton\" data-bs-toggle='modal' data-bs-target='#residentsModal' data-planet='${planet}' data-residents=\"${residentsLinks}\">${amountOfResidents} resident(s)</button>`
     }
-
 }
 
