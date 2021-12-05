@@ -11,17 +11,17 @@ nextButton.addEventListener("click", e => loadNextOrPreviousPage(nextPageLink))
 let previousButton = document.querySelector("#previous");
 previousButton.addEventListener("click", e => loadNextOrPreviousPage(previousPageLink))
 
-
 function loadNextOrPreviousPage(APILink= PLANETS){
+    tableBody.innerHTML = ""
     fetch(APILink).then(response => response.json())
     .then(data => {
         nextPageLink = data.next;
         previousPageLink = data.previous;
         showHideButton(previousPageLink,previousButton)
         showHideButton(nextPageLink,nextButton)
-        let rows = tableBody.querySelectorAll(".row")
         for(let i=0; i<data.results.length; i++){
-            var tr = rows[i]
+            let tr = document.createElement('TR');
+            tr.classList.add("row");
             let dataForTable = [data.results[i]["name"],
                         convertStringToNumberWithUnit(data.results[i]["diameter"]),
                         data.results[i]["climate"], data.results[i]["terrain"],
@@ -29,10 +29,13 @@ function loadNextOrPreviousPage(APILink= PLANETS){
                         convertStringToNumberWithDecimals(data.results[i]["population"]),
                         getResidentsNumber(data.results[i]["residents"],data.results[i]["name"] ),
                         "Vote"]
-            let cells = tr.querySelectorAll(".col")
-                for(let j=0; j<dataForTable.length; j++){
-                    var td = cells[j]
-                    td.innerHTML = dataForTable[j]}
+            for(let j=0; j<dataForTable.length; j++){
+                var td = document.createElement('TD');
+                td.classList.add("col");
+                td.innerHTML = dataForTable[j]
+                tr.appendChild(td);
+        }
+        tableBody.appendChild(tr);
         }
         triggerModalButtons()
     })
