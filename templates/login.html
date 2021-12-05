@@ -1,0 +1,33 @@
+{% extends "layout.html" %}
+
+{% block page_title %}
+    Login
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid text-light">
+    <div class="row">
+    <div class="col">
+    </div>
+    <div class="col registration">
+        <h1 class="h1">Login</h1>
+        <form method="POST" action="/login">
+            <label>Username:</label>
+            <input type="text" name="username" required placeholder="admin"><br><br>
+            <label>Password:</label>
+            <input type="password"  name="password" required placeholder="*******">
+            <button class="btn btn-outline-light mt-3" type="submit">Login</button>
+        </form>
+
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+          {% for message in messages %}
+             <p class="bg-warning text-dark">{{ message }}</p>
+          {% endfor %}
+        {% endif %}
+        {% endwith %}
+    </div>
+    <div class="col">
+    </div>
+  </div>
+{% endblock %}

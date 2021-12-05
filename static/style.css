@@ -2,6 +2,7 @@ body{
     background-size: cover;
     background: url("star-wars-backgrounds-14.jpeg") no-repeat;
     height: 100%;
+    color: whitesmoke;
 }
 
 h1{
@@ -10,5 +11,20 @@ h1{
 }
 
 table{
+    text-align: center;
+}
+
+form{
+    font-size: 20px;
+    text-shadow: -4px -4px black;
+    margin: 5%;
+}
+
+form label{
+    padding: 5%;
+
+}
+
+.registration{
     text-align: center;
 }

@@ -1,0 +1,34 @@
+{% extends "layout.html" %}
+
+{% block page_title %}
+    Registration
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid text-light">
+    <div class="row">
+    <div class="col">
+    </div>
+    <div class="col registration">
+        <h1 class="h1">Registration</h1>
+        <form method="POST" action="/register" enctype=multipart/form-data>
+            <label for="username">Username:</label><br>
+            <input id="username" name="username" placeholder="admin"><br>
+            <label for="password">Password:</label><br>
+            <input id="password" name="password" type="password"><br>
+            <button class="btn btn-outline-light mt-3" type="submit">Register</button>
+        </form>
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+          {% for message in messages %}
+             <p class="bg-warning text-dark">{{ message }}</p>
+          {% endfor %}
+        {% endif %}
+        {% endwith %}
+    </div>
+    <div class="col">
+    </div>
+  </div>
+
+</div>
+{% endblock %}
