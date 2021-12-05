@@ -21,13 +21,13 @@ function changeModalContent(e) {
                 let tr = document.createElement('TR');
                 tr.classList.add("row");
                 let dataForTable = [data["name"],
-                                    data["height"],
-                                    data["mass"],
+                                    convertHeightToMeter(data["height"]),
+                                    convertStringToNumberWithKg(data["mass"]),
                                     data["skin_color"],
                                     data["hair_color"],
                                     data["eye_color"],
                                     data["birth_year"],
-                                    data["gender"]]
+                                    createGenderEmoji(data["gender"])]
                 for(let j=0; j<dataForTable.length; j++){
                     let td = document.createElement('TD');
                     td.classList.add("col");
@@ -37,5 +37,35 @@ function changeModalContent(e) {
                 modalTable.appendChild(tr)
 
             })
+    }
+}
+
+function convertStringToNumberWithKg(string){
+    if (string != "unknown"){
+        return string + " kg";
+    }else{
+        return "unknown"
+    }
+}
+
+function convertHeightToMeter(string){
+    if (string != "unknown"){
+        let heightInCm = parseInt(string)
+        let heightInM = heightInCm / 100
+        return heightInM + " m";
+    }else{
+        return "unknown"
+    }
+}
+
+function createGenderEmoji(gender){
+    if (gender != "n/a"){
+        if (gender == "female"){
+            return '♂️'
+        }else{
+            return '♀️'
+        }
+    }else{
+        return "n/a"
     }
 }
