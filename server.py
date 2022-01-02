@@ -1,11 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for, session, flash, get_flashed_messages
 import data_manager
 import util
-import os
-import psycopg2
-
-connection_string = os.environ.get('DATABASE_URL')
-connection = psycopg2.connect(connection_string)
 
 
 app = Flask(__name__)
