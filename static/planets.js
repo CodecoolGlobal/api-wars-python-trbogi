@@ -31,7 +31,11 @@ function loadNextOrPreviousPage(APILink= PLANETS){
                         "Vote"]
             for(let j=0; j<dataForTable.length; j++){
                 var td = document.createElement('TD');
-                td.classList.add("col");
+                if (j == 5){
+                     td.classList.add("col-md-2");
+                }else{
+                    td.classList.add("col");
+                }
                 td.innerHTML = dataForTable[j]
                 tr.appendChild(td);
         }
