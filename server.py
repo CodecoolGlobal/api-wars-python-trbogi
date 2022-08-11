@@ -14,7 +14,6 @@ def index():
 
 @app.route("/register", methods=['GET', 'POST'])
 def register():
-    session.pop('_flashes', None)
     if request.method == 'POST':
         if request.form['username'] == "" or request.form['password'] == "":
             flash("Please, fill in both fields.", "error")

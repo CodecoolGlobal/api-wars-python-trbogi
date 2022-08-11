@@ -25,17 +25,17 @@
                 <li class="nav-item">
                   <a class="nav-link" href="{{ url_for('login') }}">Login</a>
                 </li>
-                  {% if session %}
+                  {% if session['username'] %}
                   <li class="nav-item">
                   <a class="nav-link" href="{{ url_for('logout') }}">Logout</a>
                 </li>
                   {% endif %}
               </ul>
+                {% if session['username'] %}
                 <span class="navbar-brand mb-0">
-                    {% if session %}
                         Signed in as {{ session['username']}}
-                    {% endif %}
                 </span>
+                 {% endif %}
             </div>
           </div>
     </nav>
